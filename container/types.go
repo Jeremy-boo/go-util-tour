@@ -19,6 +19,6 @@ type SingleLinkedList interface {
 	Insert(index int,value interface{}) error
 	RemoveFront() Object
 	RemoveEnd() Object
-	Get(index int) Object
+	Get(index int) (Object,error)
 	GetHead() *Node
 }
