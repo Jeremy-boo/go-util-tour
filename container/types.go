@@ -21,4 +21,5 @@ type SingleLinkedList interface {
 	RemoveEnd() Object
 	Get(index int) (Object,error)
 	GetHead() *Node
+	Clean()
 }
