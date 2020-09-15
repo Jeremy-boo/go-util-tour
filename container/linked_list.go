@@ -114,7 +114,7 @@ func (list *LinkedList) Get(index int) (Object, error) {
 		return nil, errors.New("index out of list'length")
 	}
 	prevNode := list.head
-	for i := 1; i < list.Len(); i++ {
+	for i := 0; i < list.Len(); i++ {
 		if i == index {
 			return prevNode.value, nil
 		}
