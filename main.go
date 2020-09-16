@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/go-util-tour/container"
+	v1 "github.com/go-util-tour/container"
 )
 
 func main() {
-	linkList := container.NewLinkedList()
+	linkList := v1.NewLinkedList()
 	linkList.PushFront("first")
 	linkList.PushEnd("two")
 	val, _ := linkList.Get(1)

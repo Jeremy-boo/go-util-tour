@@ -127,7 +127,3 @@ func (list *LinkedList) Get(index int) (Object, error) {
 func (list *LinkedList) GetHead() *Node {
 	return list.head
 }
-
-func (list *LinkedList) Clean() {
-
-}
