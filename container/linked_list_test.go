@@ -1,6 +1,8 @@
 package container
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestLinkedList_Len(t *testing.T) {
 	l := NewLinkedList()
