@@ -1,6 +1,5 @@
 package logger
 
-// Log constants, should be written in the configuration file.
 const (
 	LogLevel   = "debug"
 	FileName   = "./log/debug.log"
