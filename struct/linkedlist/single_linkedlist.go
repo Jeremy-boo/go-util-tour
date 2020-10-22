@@ -1,5 +1,7 @@
 package linkedlist
 
+import "errors"
+
 // Object singly linked list value
 type Object interface{}
 
@@ -16,11 +18,12 @@ type LinkedList interface {
 	PushFront(value Object)
 	PushEnd(value Object)
 	Add(value Object)
-	Insert(value Object, index int)
-	RemoveFront() Node
-	RemoveEnd() Node
-	Remove(index int) Node
-	FindByIndex(index int) Node
+	Insert(value Object, index int) (bool, error)
+	RemoveFront() bool
+	RemoveEnd() bool
+	RemoveAll() bool
+	Remove(index int) (bool, error)
+	FindByIndex(index int) (Object, error)
 }
 
 // SingleLinkedList Single list
@@ -91,4 +94,101 @@ func (list *SingleLinkedList) PushEnd(value Object) {
 	prev.next = node
 	list.tail = node
 	list.len++
+}
+
+// Insert Insert data at the specified position in the linked list.
+func (list *SingleLinkedList) Insert(value Object, index int) (bool, error) {
+	if index > list.Len()-1 || index < 0 {
+		return false, errors.New("index is not available")
+	}
+	// add to head
+	if index == 0 {
+		list.PushFront(value)
+	}
+	prev := list.head
+	node := &Node{
+		value: value,
+		next:  nil,
+	}
+	for i := 1; i < list.Len(); i++ {
+		if index == i {
+			node.next = prev.next
+			prev.next = node
+			list.len++
+			break
+		}
+		prev = prev.next
+	}
+	return true, nil
+}
+
+// RemoveFront Delete head node.
+func (list *SingleLinkedList) RemoveFront() bool {
+	if list.head == nil {
+		return false
+	}
+	list.head = list.head.next
+	list.len--
+	return true
+}
+
+// RemoveEnd Delete tail node.
+func (list *SingleLinkedList) RemoveEnd() bool {
+	if list.tail == nil {
+		return false
+	}
+	if list.Len() == 1 {
+		list.RemoveFront()
+	}
+	prev := list.head
+	for i := 0; i < list.Len(); i++ {
+		if i == list.Len()-2 {
+			prev.next = nil
+			list.tail = prev
+			list.len--
+			break
+		}
+		prev = prev.next
+	}
+	return true
+}
+
+// Remove Delete the node at the specified position.
+func (list *SingleLinkedList) Remove(index int) (bool, error) {
+	if index < 0 || index > list.Len()-1 {
+		return false, errors.New("index is not available")
+	}
+	if index == 0 {
+		list.RemoveFront()
+	}
+	if index == list.Len()-1 {
+		list.RemoveEnd()
+	}
+	prev := list.head
+	for i := 1; i < list.Len()-1; i++ {
+		if index == i {
+			prev.next = prev.next.next
+			list.len--
+			break
+		}
+		prev = prev.next
+	}
+	return true, nil
+}
+
+// FindByIndex Find the value of an element based on the index.
+func (list *SingleLinkedList) FindByIndex(index int) (Object, error) {
+	if index < 0 || index > list.Len()-1 {
+		return nil, errors.New("index is not available")
+	}
+	var val Object
+	prev := list.head
+	for i := 0; i < list.Len(); i++ {
+		if index == i {
+			val = prev.value
+			break
+		}
+		prev = prev.next
+	}
+	return val, nil
 }
