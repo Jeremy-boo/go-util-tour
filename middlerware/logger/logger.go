@@ -6,6 +6,7 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
+// Logger zap log
 var Logger *zap.Logger
 
 // InitLogger Initialization log
