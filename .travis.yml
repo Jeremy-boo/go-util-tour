@@ -1,0 +1,5 @@
+# Golang travis ci 配置
+language: go
+
+script:
+  - go test -v ./...
